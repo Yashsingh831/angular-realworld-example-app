@@ -1,39 +1,23 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+resources:
+  repositories:
+    - repository: ADF
+      type: git
+      ref: main
+      name: ADF
 
-trigger:
-- master
-
-pool:
-  vmImage: windows-latest
+variables:
+  ref: $[ resources.repositories.common.ref ]
+  name: $[ resources.repositories.common.name ]
+  id: $[ resources.repositories.common.id ]
+  type: $[ resources.repositories.common.type ]
+  url: $[ resources.repositories.common.url ]
+  version: $[ resources.repositories.common.version ]
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
-- task: CmdLine@2
-  inputs:
-    script: 'rm -rf package-lock.json'
-- task: Cache@2
-  inputs:
-    key: 'npm | "$(Agent.OS)" | package-lock.json'
-    restoreKeys: |
-       npm | "$(Agent.OS)"
-    path: $(npm_config_cache)
-  displayName: Cache npm
-
-
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
-- script: ls -a
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)/s/dist'
-    artifact: 'drop'
-    publishLocation: 'pipeline'
+- bash: |
+    echo "name = $(name)"
+    echo "ref = $(ref)"
+    echo "id = $(id)"
+    echo "type = $(type)"
+    echo "url = $(url)"
+    echo "version = $(version)"
