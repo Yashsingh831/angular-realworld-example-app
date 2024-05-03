@@ -5,11 +5,21 @@
 
 trigger:
 - master
+resources:
+  repositories:
+    - repository: ADF # Required as first property. Alias for the repository.
+    # ID of the service endpoint connecting to this repository.
+      # CI trigger for this repository, no CI trigger if skipped (only works for Azure Repos).
+      name: ADF # repository name (format depends on 'type'; does not accept variables).
+      ref: dev # ref name to checkout; defaults to 'refs/heads/main'. The branch checked out by default whenever the resource trigger fires.
+      type: git # Type of repository: git, github, githubenterprise, and bitbucket.
 
 pool:
   vmImage: windows-latest
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm  
+
+
 
 steps:
 - checkout: self
