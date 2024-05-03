@@ -22,6 +22,7 @@ variables:
 
 
 steps:
+- script: echo "$resources.repositories.ADF.ref"
 - checkout: self
 - task: NodeTool@0
   inputs:
