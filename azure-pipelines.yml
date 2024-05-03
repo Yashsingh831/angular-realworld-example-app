@@ -19,10 +19,12 @@ pool:
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm  
 
+  ref: $[ resources.repositories.common.ref ]
+
 
 
 steps:
-- script: echo "$[ resources.repositories.common.ref ]"
+- script: echo "ref = $(ref)"
 - checkout: self
 - task: NodeTool@0
   inputs:
