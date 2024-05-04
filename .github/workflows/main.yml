@@ -22,6 +22,20 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - run: echo "test"
+    - uses: actions/download-artifact@v4.1.7
+      with:
+        name: drop
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: Azure/webapps-deploy@v3.0.1
+      with:
+        app-name: githubactionsapp
+        target-path: .
+      
+
         
     
