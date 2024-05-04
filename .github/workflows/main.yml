@@ -38,7 +38,7 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - uses: Azure/webapps-deploy@v3.0.1
       with:
-        app-name: githubactionsapp
+        app-name: angularcheck
         package: .
       
 
