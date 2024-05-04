@@ -1,0 +1,18 @@
+name: angular
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: yarn install
+    - run: ng build -prod
+    - uses: actions/upload-artifact@v4.3.3
+      with:
+        name: drop
+        path: dist/
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "test"
+        
+    
